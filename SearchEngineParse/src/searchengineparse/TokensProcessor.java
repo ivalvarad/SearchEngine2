@@ -141,8 +141,10 @@ public class TokensProcessor {
             for(int j = initialIndex; j <= finalIndex; j++){
                 String line = lines[j];
                 line = line.substring(line.indexOf("|")+1);
+                //add the termFreq too
+                String tf = line.substring(0, line.indexOf("|")); //leaves: term frequency
                 String docID = line.substring(line.indexOf("|")+1, line.length()); //leaves: docID
-                postings += " "+docID;
+                postings += " "+docID+"|"+tf;
                 System.out.print(" DocID: "+docID);
             }
             //System.out.println();

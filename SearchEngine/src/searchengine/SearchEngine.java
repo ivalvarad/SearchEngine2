@@ -51,16 +51,19 @@ public class SearchEngine {
             line = line.substring(blankIdx+1); //remove the term from the line
             String parts[] = line.split(" ");
             for(String part : parts){
-                String docID = part;
-                newEntry.addDocument(docID);
+                String docID = part.substring(0, part.indexOf("|"));
+                String termFreq = part.substring(part.indexOf("|")+1, part.length());
+                newEntry.addDocument(docID,termFreq);
             }
             myIndex.insert(newEntry);
         }
         //System.out.println(myIndex.toString());
     }
     
-    public ArrayList<String> processQuery(String query){
-        return myQP.processQuery(query);
+    public void processQuery(String query){//public ArrayList<String> processQuery(String query){
+        //return myQP.processQuery(query);
+        buildIndex();
+        System.out.println(myIndex.toString());
     }
     
 }

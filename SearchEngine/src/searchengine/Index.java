@@ -73,9 +73,9 @@ public class Index {
     }
     
     //associated a docID with a term
-    public void associate(String term, String docID){
+    public void associate(String term, String docID, String termFreq){
         ArrayList<Integer> idx = getIndex(term);
-        table.get(idx.get(0)).get(idx.get(1)).addDocument(docID);
+        table.get(idx.get(0)).get(idx.get(1)).addDocument(docID, termFreq);
     }
     
     //returns true if the docID is already associated to the term, false otherwise
