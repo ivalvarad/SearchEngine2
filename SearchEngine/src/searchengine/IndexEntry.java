@@ -12,20 +12,21 @@ import java.util.ArrayList;
  * @author Iva
  */
 public class IndexEntry {
-    String term;
-    int frequency; //# of documents the terms appears on
+    private String term;
+    private int df; //# of documents the terms appears on
+    private double  idf; //# of documents the terms appears on
     //ArrayList<String> postingsList;
     ArrayList<Posting> postingsList;
     
     public IndexEntry(String term){
         this.term = term;
-        this.frequency = -1;
+        this.df = -1;
         this.postingsList = new ArrayList<>();
     }
     
     public IndexEntry(){
         this.term = "";
-        this.frequency = -1;
+        this.df = -1;
         this.postingsList = new ArrayList<>();
     }
     
@@ -40,7 +41,7 @@ public class IndexEntry {
     public void addDocument(String docID, String termFreq){
         //postingsList.add(docID);
         postingsList.add(new Posting(docID,termFreq));
-        incrementFrecuency();
+        incrementDf();
     }
     
     /*public String getDocument(int index){
@@ -61,12 +62,21 @@ public class IndexEntry {
         return result;
     }
     
-    public void incrementFrecuency(){
-        frequency++;
+    public void incrementDf(){
+        df++;
     }
     
-    public int getFrecuency(){
-        return frequency;
+    public int getDf(){
+        return df;
+    }
+    
+    public void calculateIdf(int N){
+        idf = Math.log10(N/df); //CHANGE N = #docs in the collection!!
+        // log10(N/tf)
+    }
+    
+    public double getIdf(){
+        return idf;
     }
     
     public ArrayList getPostingsList(){
@@ -76,13 +86,13 @@ public class IndexEntry {
     @Override
     public String toString(){
         String result = "";
-        result += "Term: "+term+", "+"docFrequency: "+getFrecuency()+", "+"Documents: ";
+        result += "Term: "+term+", "+"docFrequency: "+getDf()+", "+"Documents: ";
         if(postingsList.size()>0){
-            result += postingsList.get(0).getDocID()+"||"+postingsList.get(0).getTermFreq();;
+            result += postingsList.get(0).getDocID()+"||"+postingsList.get(0).getTf();;
         }
         if(postingsList.size()>1){
             for(int i = 1; i < postingsList.size(); i++){
-                result += " | "+ postingsList.get(i).getDocID()+"||"+postingsList.get(i).getTermFreq();
+                result += " | "+ postingsList.get(i).getDocID()+"||"+postingsList.get(i).getTf();
             }
         }
         return result;

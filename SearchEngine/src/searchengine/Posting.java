@@ -11,21 +11,44 @@ package searchengine;
  */
 public class Posting {
     private String docID;
-    private String termFreq;
+    private String tf;
+    private double wtf;
+    private double weight;
+    private double nlized;
+    
     public Posting(String docID, String termFreq){
         this.docID = docID;
-        this.termFreq = termFreq;
+        this.tf= termFreq;
     }
     public void setDocID(String docID){
         this.docID = docID;
     }
-    public void setTermFreq(String termFreq){
-        this.termFreq = termFreq;
+    public void setTf(String termFreq){
+        this.tf = termFreq;
     }
     public String getDocID(){
         return docID;
     }
-    public String getTermFreq(){
-        return termFreq;
+    public String getTf(){
+        return tf;
+    }
+    
+    public void calculateWtf(){
+        int tfInt = Integer.parseInt(tf.trim());
+        if(tfInt>0){wtf = 1+Math.log10(wtf);}else{wtf =0;}
+        // 1+log10(tf) if tf > 0
+        // 0 otherwise
+    }
+    
+    public void calculateWeight(double idf){
+        weight =  wtf*idf;
+    }
+    
+    public double getWeight(){
+        return weight;
+    }
+     
+    public double getWtf(){
+        return wtf;
     }
 }
