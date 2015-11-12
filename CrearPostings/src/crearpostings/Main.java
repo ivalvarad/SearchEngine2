@@ -24,11 +24,12 @@ public class Main {
         for(int i = 0; i < temp1.length-1; ++i){
             ruta += temp1[i] + "/";
         }
-        Postings postings = new Postings(ruta);
         File[] archivos = new File(ruta+"dirTokens").listFiles();
+        Postings postings = new Postings(ruta, archivos.length);
         for(int i = 0; i < archivos.length; ++i){
-            postings.modificarArchivo(archivos[i]);
+            postings.modificarArchivo(archivos[i], i);
         }
+        postings.calcularMetricas();
         postings.escribirArchivo(new File(ruta + "postings.txt"));
     }
     
