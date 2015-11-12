@@ -99,14 +99,13 @@ public class Interface extends javax.swing.JFrame {
         // TODO add your handling code here:
         // jTextArea1.append( searchEngine.processQuery(jButton1.getText()).get(0) );
 		// jTextArea1.append( searchEngine.processQuery(jTextField1.getText()).get(0) );
-                /*jTextArea1.setText("");
-		ArrayList<String> result = new ArrayList<>();
-		result = searchEngine.processQuery(jTextField1.getText());
-		for(int i = 0; i < result.size(); ++i)
-		{
-			jTextArea1.append( result.get(i) + "\n" );
-		}*/
-                searchEngine.processQuery("");
+        jTextArea1.setText("");
+	ArrayList<String> result = new ArrayList<>();
+	result = searchEngine.processQuery(jTextField1.getText());
+	for(int i = 0; i < result.size(); ++i)
+	{
+            jTextArea1.append( result.get(i) + "\n" );
+	}
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

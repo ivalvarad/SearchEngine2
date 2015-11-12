@@ -74,6 +74,11 @@ public class QueryProcessor
 	// eliminates the stop-words.
 	rawQuery = eliminateWords(queryWords);
         result = processWords(rawQuery);
+        for(int i = 0; i < result.size(); ++i)
+        {
+            System.out.println("FINAL :3");
+            System.out.println(result.get(i));
+        }
         if(result == null)
         {
             result.add("Results not found.\n");
@@ -168,8 +173,10 @@ public class QueryProcessor
     // then uses interyection to create the result to be shown.
     public ArrayList<String> processWords(ArrayList<String> queryWords)
     {
-        ArrayList<String> postListF = new ArrayList<>();
-        ArrayList<String> postList = new ArrayList<>();
+        ArrayList<Posting> postListF = new ArrayList<>();
+        ArrayList<Posting> postList = new ArrayList<>();
+        ArrayList<Posting> sortedList = new ArrayList<>();
+        ArrayList<String> ans = new ArrayList<>();
         IndexEntry entry = new IndexEntry();
         String aux;
         
@@ -193,36 +200,78 @@ public class QueryProcessor
                 }
             }
         }
-        for(int i = 0; i < postListF.size();++i)
+        /*for(int k = 0; k < postListF.size(); ++k)
         {
-            //System.out.println("PostF:" + postListF.get(i));
-        }
-        return postListF;
+            System.out.println(postListF.get(k).getDocID());
+        }*/
+        sortedList = sortPostingList(postListF);
+        /* for(int k = 0; k < sortedList.size(); ++k)
+        {
+            System.out.println(sortedList.get(k).getDocID());
+        }*/
+        ans = toStringList(sortedList);
+        return ans;
     }
     
     // intersection between two sets of words.
     // the structure of the set model was simulated as an array.
-    public ArrayList<String> setIntersection(ArrayList<String> S1, ArrayList<String> S2)
+    public ArrayList<Posting> setIntersection(ArrayList<Posting> S1, ArrayList<Posting> S2)
     {
-        ArrayList<String> ans = new ArrayList<>();
+        ArrayList<Posting> ans = new ArrayList<>();
         String word1;
         String word2;
         for(int i = 0; i < S1.size(); ++i)
         {
-            word1 = S1.get(i);
+            word1 = S1.get(i).getDocID();
             word1 = word1.trim();
             for(int j = 0; j < S2.size(); ++j)
             {
-                word2 = S2.get(j);
+                word2 = S2.get(j).getDocID();
                 word2 = word2.trim();
                 // element is part of the sets intersection.
                 if(word1.compareToIgnoreCase(word2) == 0)
                 {
-                    ans.add(word1);
+                    ans.add(S1.get(i));
                     // it is not needed to end the intern cycle.
                 }
             }
         }
         return ans;
     }    
+    
+    public ArrayList<Posting> sortPostingList(ArrayList<Posting> L)
+    {
+        ArrayList<Posting> ans = new ArrayList<>();
+        // position of the greatest number in the sublist.
+        int gPos;
+        for(int i = 0; i < L.size(); ++i)
+        {
+            gPos = i;
+            for(int j = i+1; j < L.size(); ++j)
+            {
+                if(L.get(j).getWeight() > L.get(gPos).getWeight())
+                {
+                    gPos = j;
+                }
+            }
+            // saves the posting for the greates in the sublist.
+            ans.add(L.get(gPos));
+        }
+        return ans;
+    }
+    
+    // transform a postinglist of posting objects into
+    // a new list only with the id of the documents
+    // of the postinglist.
+    public ArrayList<String> toStringList(ArrayList<Posting> L)
+    {
+        ArrayList<String> ans = new ArrayList<>();
+        for(int i = 0; i < L.size(); ++i)
+        {
+            ans.add(L.get(i).getDocID());
+        }
+        return ans;
+    }
+    
 }
+
