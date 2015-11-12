@@ -63,7 +63,7 @@ public class Postings {
           archivos[indice] = archivo.getName();
           do{
              linea = entrada.nextLine();
-             agregarPosting(linea, archivo.getName(), indice);
+             agregarPosting(linea, (""+indice), indice);
           }while(entrada.hasNextLine());
           entrada.close();
           //calculo del tf
@@ -91,12 +91,13 @@ public class Postings {
     }
     
     public void calcularMetricas(){
+        String[] temp;
         //calculo del peso
         for(int i = 0; i < metricas.length; ++i){
             for(int j = 0; j < metricas[i].length; ++j){
                 //si el tf es 0 no calcularlo
                 if(metricas[i][j][0] > 0){
-                    String[] temp = postings[i].split(" ");
+                    temp = postings[i].split(" ");
                     metricas[i][j][1] = Math.log10(N/temp.length)*metricas[i][j][0];
                 }
             }
@@ -117,7 +118,12 @@ public class Postings {
         //agregar metricas a la lista de postings
         int indice = 0;
         for(int i = 0; i < metricas.length; ++i){
-            
+            temp = postings[i].split(" ");
+            postings[i] = "";
+            for(int j = 0; j < temp.length; ++j){
+                indice = Integer.parseInt(temp[j]);
+                postings[i] += archivos[indice] +"|" + metricas[i][j][2] + " ";
+            }
         }
     }
     
