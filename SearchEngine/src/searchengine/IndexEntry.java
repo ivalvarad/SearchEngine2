@@ -38,9 +38,9 @@ public class IndexEntry {
         return this.term;
     }
     
-    public void addDocument(String docID, String termFreq){
+    public void addDocument(String docID, String nlized){
         //postingsList.add(docID);
-        postingsList.add(new Posting(docID,termFreq));
+        postingsList.add(new Posting(docID,nlized));
         incrementDf();
     }
     
@@ -64,14 +64,15 @@ public class IndexEntry {
     
     public void incrementDf(){
         df++;
+        //calculateIdf();
     }
     
     public int getDf(){
         return df;
     }
     
-    public void calculateIdf(int N){
-        idf = Math.log10(N/df); //CHANGE N = #docs in the collection!!
+    public void calculateIdf(){ //(int N){
+        idf = Math.log10(50/df); //CHANGE N = #docs in the collection!!
         // log10(N/tf)
     }
     
@@ -88,13 +89,14 @@ public class IndexEntry {
         String result = "";
         result += "Term: "+term+", "+"docFrequency: "+getDf()+", "+"Documents: ";
         if(postingsList.size()>0){
-            result += postingsList.get(0).getDocID()+"||"+postingsList.get(0).getTf();;
+            result += postingsList.get(0).getDocID()+"||"+postingsList.get(0).geNlized();;
         }
         if(postingsList.size()>1){
             for(int i = 1; i < postingsList.size(); i++){
-                result += " | "+ postingsList.get(i).getDocID()+"||"+postingsList.get(i).getTf();
+                result += " | "+ postingsList.get(i).getDocID()+"||"+postingsList.get(i).geNlized();
             }
         }
+        System.out.println(result);
         return result;
     }
     

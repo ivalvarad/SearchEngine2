@@ -52,7 +52,7 @@ public class SearchEngine {
             String parts[] = line.split(" ");
             for(String part : parts){
                 String docID = part.substring(0, part.indexOf("|"));
-                String termFreq = part.substring(part.indexOf("|")+1, part.length());
+                String termFreq = part.substring(part.indexOf("|")+1, part.length()); ///////////////
                 newEntry.addDocument(docID,termFreq);
             }
             myIndex.insert(newEntry);
@@ -60,11 +60,12 @@ public class SearchEngine {
         //System.out.println(myIndex.toString());
     }
     
-    //public void processQuery(String query){
-    public ArrayList<String> processQuery(String query)
+    public void processQuery(String query)
+    //public ArrayList<String> processQuery(String query)
     {
         // System.out.println(myIndex.toString());
-        return myQP.processQuery(query);
-        // buildIndex();
+        //return myQP.processQuery(query);
+        buildIndex();
+        System.out.println(myIndex.toString());
     }
 }

@@ -249,10 +249,10 @@ public class QueryProcessor
             gPos = i;
             for(int j = i+1; j < L.size(); ++j)
             {
-                if(L.get(j).getWeight() > L.get(gPos).getWeight())
+                /*if(L.get(j).getWeight() > L.get(gPos).getWeight())
                 {
                     gPos = j;
-                }
+                }*/
             }
             // saves the posting for the greates in the sublist.
             ans.add(L.get(gPos));

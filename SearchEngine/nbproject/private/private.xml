@@ -4,9 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Iva/Documents/II-2015/CI-2414%20Recup/SearchEngine2/SearchEngine/src/searchengine/Index.java</file>
-            <file>file:/C:/Users/Iva/Documents/II-2015/CI-2414%20Recup/SearchEngine2/SearchEngine/src/searchengine/Interface.java</file>
-            <file>file:/C:/Users/Iva/Documents/II-2015/CI-2414%20Recup/SearchEngine2/SearchEngine/src/searchengine/QueryProcessor.java</file>
+            <file>file:/C:/Users/Iva/Documents/II-2015/CI-2414%20Recup/SearchEngine2/SearchEngine/src/searchengine/SearchEngine.java</file>
             <file>file:/C:/Users/Iva/Documents/II-2015/CI-2414%20Recup/SearchEngine2/SearchEngine/src/searchengine/IndexEntry.java</file>
+            <file>file:/C:/Users/Iva/Documents/II-2015/CI-2414%20Recup/SearchEngine2/SearchEngine/src/searchengine/Posting.java</file>
         </group>
     </open-files>
 </project-private>

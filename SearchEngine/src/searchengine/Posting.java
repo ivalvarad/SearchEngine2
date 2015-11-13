@@ -11,44 +11,30 @@ package searchengine;
  */
 public class Posting {
     private String docID;
-    private String tf;
-    private double wtf;
-    private double weight;
+    //private String tf;
+    //private double wtf;
+    //private double weight;
     private double nlized;
     
-    public Posting(String docID, String termFreq){
+    public Posting(String docID, String nlized){
         this.docID = docID;
-        this.tf= termFreq;
+        try{
+            this.nlized = Double.parseDouble(nlized);
+        }catch (Exception e){System.out.println("Imposible convertir de String a double.");};
     }
+    
     public void setDocID(String docID){
         this.docID = docID;
     }
-    public void setTf(String termFreq){
-        this.tf = termFreq;
+    public void setNlized(String nlized){
+       try{
+            this.nlized = Double.parseDouble(nlized);
+        }catch (Exception e){System.out.println("Imposible convertir de String a double.");};
     }
     public String getDocID(){
         return docID;
     }
-    public String getTf(){
-        return tf;
-    }
-    
-    public void calculateWtf(){
-        int tfInt = Integer.parseInt(tf.trim());
-        if(tfInt>0){wtf = 1+Math.log10(wtf);}else{wtf =0;}
-        // 1+log10(tf) if tf > 0
-        // 0 otherwise
-    }
-    
-    public void calculateWeight(double idf){
-        weight =  wtf*idf;
-    }
-    
-    public double getWeight(){
-        return weight;
-    }
-     
-    public double getWtf(){
-        return wtf;
+    public double geNlized(){
+        return nlized;
     }
 }
