@@ -88,6 +88,7 @@ public class QueryProcessor
         {
             result.add("Results not found\n");
         }
+		printRankingTable();
         return result;
     }
     
@@ -439,6 +440,18 @@ public class QueryProcessor
         for(int i = 0; i < rankingTable.length; ++i)
         {
             rankingTable[i][4] = rankingTable[i][1] * rankingTable[i][3];
+        }
+    }
+	
+	public void printRankingTable()
+    {
+        for(int i = 0; i < rankingTable.length; ++i)
+        {
+            for(int j = 0; j < rankingTable[i].length; ++j)
+            {
+                System.out.print(rankingTable[i][j] + "\t");
+            }
+            System.out.println("");
         }
     }
 }
