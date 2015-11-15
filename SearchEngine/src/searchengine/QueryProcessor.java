@@ -255,7 +255,6 @@ public class QueryProcessor
         ArrayList<Posting> postList = new ArrayList<>();
         IndexEntry entry = new IndexEntry();
         double[] rankingValues;
-        boolean[] validValues;
         String queryTerm;
         String doc;
         int docQ;
@@ -265,12 +264,10 @@ public class QueryProcessor
         {
             // value of a query in a document.
             rankingValues = new double[docQ];
-            validValues = new boolean[docQ];
         }
         else
         {
             rankingValues = new double[1];
-            validValues = new boolean[1];
         }
         
         for(int i = 0; i < documentList.size(); ++i)
@@ -303,30 +300,29 @@ public class QueryProcessor
             System.out.println(rankingValues[i]);
         }
         
-        // sorting the list according to the ranking product.        
-        ArrayList<String> ans = new ArrayList<>();
         // position of the greatest number in the sublist.
         int gPos;
         double a;
-        int i = 0;
-        while(isDone(validateValues))
+        String d;
+        for(int i = 0; i < docQ; ++i)
         {
-            gPos = i%docQ;
-            for(int j = 0; j < docQ; ++j)
+            gPos = i;
+            for(int j = i; j < docQ; ++j)
             {
-                if((rankingValues[j] > rankingValues[gPos]) && (validValues[j] == false))
+                if(rankingValues[j] > rankingValues[gPos])
                 {
                     gPos = j;
                 }
             }
-            if(validValues[i%docQ] == false)
-            {
-                validValues[gPos] = true;
-                // saves the posting for the greates in the sublist.
-                ans.add(documentList.get(gPos));
-            }    
+            // swap the values.
+            a = rankingValues[i];
+            rankingValues[i] = rankingValues[gPos];
+            rankingValues[gPos] =  a;
+            d = documentList.get(i);
+            documentList.set(i, documentList.get(gPos));
+            documentList.set(gPos, d);            
         }
-        return ans;
+        return documentList;
     }
     
     // transform a postinglist of posting objects into
